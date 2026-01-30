@@ -24,7 +24,11 @@ return {
       }
       vim.keymap.set('n', '<Tab>', '<cmd>BufferLineCycleNext<CR>', { desc = 'Next tab' })
       vim.keymap.set('n', '<S-Tab>', '<cmd>BufferLineCyclePrev<CR>', { desc = 'Previous tab' })
-      vim.keymap.set('n', '<leader>x', '<cmd>bdelete<CR>', { desc = 'Close tab' })
+      vim.keymap.set('n', '<leader>x', function()
+        local buf = vim.api.nvim_get_current_buf()
+        vim.cmd 'BufferLineCyclePrev'
+        vim.api.nvim_buf_delete(buf, { force = false })
+      end, { desc = 'Close tab' })
     end,
   },
 }
