@@ -2,4 +2,29 @@
 --  I promise not to create any merge conflicts in this directory :)
 --
 -- See the kickstart.nvim README for more information
-return {}
+return {
+  {
+    'akinsho/bufferline.nvim',
+    version = '*',
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
+    lazy = false,
+    config = function()
+      require('bufferline').setup {
+        options = {
+          diagnostics = 'nvim_lsp',
+          offsets = {
+            {
+              filetype = 'neo-tree',
+              text = 'Explorer',
+              highlight = 'Directory',
+              separator = true,
+            },
+          },
+        },
+      }
+      vim.keymap.set('n', '<Tab>', '<cmd>BufferLineCycleNext<CR>', { desc = 'Next tab' })
+      vim.keymap.set('n', '<S-Tab>', '<cmd>BufferLineCyclePrev<CR>', { desc = 'Previous tab' })
+      vim.keymap.set('n', '<leader>x', '<cmd>bdelete<CR>', { desc = 'Close tab' })
+    end,
+  },
+}
