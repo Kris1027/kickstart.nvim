@@ -98,6 +98,10 @@ vim.g.have_nerd_font = true
 -- NOTE: You can change these options as you wish!
 --  For more options, you can see `:help option-list`
 
+-- Enable spell checking
+vim.o.spell = true
+vim.o.spelllang = 'en_us'
+
 -- Make line numbers default
 vim.o.number = true
 -- You can also add relative line numbers, to help with jumping.
@@ -171,6 +175,12 @@ vim.o.confirm = true
 
 -- Save file with Ctrl+S
 vim.keymap.set('n', '<C-s>', '<cmd>w<CR>', { desc = 'Save file' })
+
+-- Undo in insert mode with Ctrl+Z
+vim.keymap.set('i', '<C-z>', '<cmd>undo<CR>', { desc = 'Undo' })
+
+-- Toggle spell checking
+vim.keymap.set('n', '<leader>ts', '<cmd>set spell!<CR>', { desc = '[T]oggle [S]pell check' })
 
 -- Clear highlights on search when pressing <Esc> in normal mode
 --  See `:help hlsearch`
