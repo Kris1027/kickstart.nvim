@@ -231,6 +231,14 @@ vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper win
 -- vim.keymap.set("n", "<C-S-j>", "<C-w>J", { desc = "Move window to the lower" })
 -- vim.keymap.set("n", "<C-S-k>", "<C-w>K", { desc = "Move window to the upper" })
 
+-- Disable spell checking for markdown files
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = { 'markdown' },
+  callback = function()
+    vim.opt_local.spell = false
+  end,
+})
+
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 
@@ -915,29 +923,15 @@ require('lazy').setup({
     -- change the command in the config to whatever the name of that colorscheme is.
     --
     -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
-    'catppuccin/nvim',
-    name = 'catppuccin',
+    'folke/tokyonight.nvim',
+    name = 'tokyonight',
     priority = 1000, -- Make sure to load this before all the other start plugins.
     config = function()
-      require('catppuccin').setup {
-        flavour = 'mocha',
-        transparent_background = true,
-        styles = {
-          comments = {},
-        },
-        integrations = {
-          neotree = true,
-          telescope = true,
-          treesitter = true,
-          which_key = true,
-          gitsigns = true,
-          mini = { enabled = true },
-          fidget = true,
-          mason = true,
-        },
+      require('tokyonight').setup {
+        style = 'night', -- night, storm, moon, day
       }
 
-      vim.cmd.colorscheme 'catppuccin'
+      vim.cmd.colorscheme 'tokyonight'
     end,
   },
 
