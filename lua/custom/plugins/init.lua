@@ -37,4 +37,72 @@ return {
     dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' },
     opts = {},
   },
+  {
+    'windwp/nvim-ts-autotag',
+    event = { 'BufReadPre', 'BufNewFile' },
+    opts = {},
+  },
+  {
+    'folke/trouble.nvim',
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
+    cmd = 'Trouble',
+    keys = {
+      { '<leader>dd', '<cmd>Trouble diagnostics toggle<cr>', desc = 'Diagnostics (Trouble)' },
+      { '<leader>dD', '<cmd>Trouble diagnostics toggle filter.buf=0<cr>', desc = 'Buffer Diagnostics (Trouble)' },
+      { '<leader>ds', '<cmd>Trouble symbols toggle focus=false<cr>', desc = 'Symbols (Trouble)' },
+    },
+    opts = {},
+  },
+  {
+    'JoosepAlviste/nvim-ts-context-commentstring',
+    event = { 'BufReadPre', 'BufNewFile' },
+    opts = {
+      enable_autocmd = false,
+    },
+  },
+  {
+    'folke/flash.nvim',
+    event = 'VeryLazy',
+    keys = {
+      { 's', mode = { 'n', 'x', 'o' }, function() require('flash').jump() end, desc = 'Flash' },
+      { 'S', mode = { 'n', 'x', 'o' }, function() require('flash').treesitter() end, desc = 'Flash Treesitter' },
+      { 'r', mode = 'o', function() require('flash').remote() end, desc = 'Remote Flash' },
+      { 'R', mode = { 'o', 'x' }, function() require('flash').treesitter_search() end, desc = 'Treesitter Search' },
+    },
+    opts = {},
+  },
+  {
+    'vuki656/package-info.nvim',
+    dependencies = { 'MunifTanjim/nui.nvim' },
+    ft = 'json',
+    config = function()
+      local pi = require 'package-info'
+      pi.setup()
+      vim.keymap.set('n', '<leader>ns', pi.show, { desc = 'Show package versions', silent = true })
+      vim.keymap.set('n', '<leader>nh', pi.hide, { desc = 'Hide package versions', silent = true })
+      vim.keymap.set('n', '<leader>nu', pi.update, { desc = 'Update package', silent = true })
+      vim.keymap.set('n', '<leader>nd', pi.delete, { desc = 'Delete package', silent = true })
+      vim.keymap.set('n', '<leader>ni', pi.install, { desc = 'Install new package', silent = true })
+      vim.keymap.set('n', '<leader>nc', pi.change_version, { desc = 'Change package version', silent = true })
+    end,
+  },
+  {
+    'kdheepak/lazygit.nvim',
+    cmd = { 'LazyGit', 'LazyGitConfig', 'LazyGitCurrentFile', 'LazyGitFilter', 'LazyGitFilterCurrentFile' },
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    keys = {
+      { '<leader>gg', '<cmd>LazyGit<cr>', desc = 'LazyGit' },
+    },
+  },
+  {
+    'rachartier/tiny-inline-diagnostic.nvim',
+    event = 'VeryLazy',
+    priority = 1000,
+    config = function()
+      require('tiny-inline-diagnostic').setup {
+        preset = 'modern',
+      }
+      vim.diagnostic.config { virtual_text = false }
+    end,
+  },
 }
